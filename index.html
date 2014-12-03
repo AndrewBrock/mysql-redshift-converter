@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Mysql-redshift-converter : MySQL to Redshift conversion script">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Mysql-redshift-converter</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/digi604/mysql-redshift-converter">View on GitHub</a>
+
+          <h1 id="project_title">Mysql-redshift-converter</h1>
+          <h2 id="project_tagline">MySQL to Redshift conversion script</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/digi604/mysql-redshift-converter/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/digi604/mysql-redshift-converter/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="mysql-to-redshift-converter" class="anchor" href="#mysql-to-redshift-converter" aria-hidden="true"><span class="octicon octicon-link"></span></a>MySQL to Redshift Converter</h1>
+
+<p>Fork of Lanyrd's MySQL to PostgreSQL conversion script. Use with care.</p>
+
+<p>This script was designed for our specific database and column requirements -
+notably, it quadrubles the lengths of VARCHARs due to a unicode size problem we
+had, places indexes on all foreign keys.</p>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>First, dump your MySQL database in PostgreSQL-compatible format</p>
+
+<pre><code>mysqldump -h hostname -u username --password=MyPassword --port 3306 --single-transaction --routines \
+--triggers --databases my_database --compress  --compact --compatible=postgresql \
+--default-character-set=utf8 &gt; my_database.mysql
+</code></pre>
+
+<p>Then, convert it using the dbconverter.py script</p>
+
+<p><code>python dbconverter.py my_database.mysql my_database.psql</code></p>
+
+<p>It'll print progress to the terminal.</p>
+
+<p>Finally, load your new dump into a fresh PostgreSQL database using: </p>
+
+<p><code>psql -h hostname -d databasename -U username -f my_database.psql -p 5439</code></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Mysql-redshift-converter maintained by <a href="https://github.com/digi604">digi604</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
