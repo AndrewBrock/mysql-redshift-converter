@@ -40,8 +40,15 @@
 notably, it quadrubles the lengths of VARCHARs due to a unicode size problem we
 had, places indexes on all foreign keys.</p>
 
+<p>This is way slower then coping the data via csv files to s3.</p>
+
 <h2>
 <a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>Get the script:</p>
+
+<pre><code>wget https://raw.githubusercontent.com/digi604/mysql-redshift-converter/master/db_converter.py
+</code></pre>
 
 <p>First, dump your MySQL database in PostgreSQL-compatible format</p>
 
