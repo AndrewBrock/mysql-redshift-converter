@@ -10,6 +10,10 @@ had, places indexes on all foreign keys.
 How to use
 ----------
 
+Get the script:
+
+    wget https://raw.githubusercontent.com/digi604/mysql-redshift-converter/master/db_converter.py
+
 First, dump your MySQL database in PostgreSQL-compatible format
 
     mysqldump -h hostname -u username --password=MyPassword --port 3306 --single-transaction --routines \
