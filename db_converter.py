@@ -51,9 +51,6 @@ def parse(input_filename, output_filename):
 
     output.write("-- Converted by db_converter\n")
     output.write("START TRANSACTION;\n")
-    output.write("SET standard_conforming_strings=off;\n")
-    output.write("SET escape_string_warning=off;\n")
-    output.write("SET CONSTRAINTS ALL DEFERRED;\n\n")
 
     for i, line in enumerate(input_fh):
         time_taken = time.time() - started
@@ -136,7 +133,7 @@ def parse(input_filename, output_filename):
                     type = "int2"
                     set_sequence = True
                 elif type.startswith("datetime"):
-                    type = "timestamp with time zone"
+                    type = "timestamp"
                 elif type == "double":
                     type = "double precision"
                 elif type == "blob":
