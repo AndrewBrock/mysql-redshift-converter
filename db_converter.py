@@ -121,13 +121,13 @@ def parse(input_filename, output_filename):
                     type = "smallint"
                     set_sequence = True
                 elif type == "text":
-                    type = "varchar(2024)"
+                    type = "varchar(4096)"
                 elif type == "longtext":
-                    type = "varchar(2024)"
+                    type = "varchar(4096)"
                 elif type == "mediumtext":
-                    type = "varchar(2024)"
+                    type = "varchar(4096)"
                 elif type == "tinytext":
-                    type = "varchar(2024)"
+                    type = "varchar(4096)"
                 elif type.startswith("varchar("):
                     size = int(type.split("(")[1].rstrip(")"))
                     type = "varchar(%s)" % (int(size * 4))
