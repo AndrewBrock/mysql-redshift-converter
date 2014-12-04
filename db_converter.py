@@ -203,19 +203,19 @@ def parse(input_filename, output_filename):
         output.write("%s;\n" % line.encode('utf-8'))
 
     # Write FK constraints out
-    output.write("\n-- Foreign keys --\n")
-    for line in foreign_key_lines:
-        output.write("%s;\n" % line.encode('utf-8'))
+    #output.write("\n-- Foreign keys --\n")
+    #for line in foreign_key_lines:
+    #    output.write("%s;\n" % line.encode('utf-8'))
 
     # Write sequences out
-    output.write("\n-- Sequences --\n")
-    for line in sequence_lines:
-        output.write("%s;\n" % line.encode('utf-8'))
+    #output.write("\n-- Sequences --\n")
+    #for line in sequence_lines:
+    #    output.write("%s;\n" % line.encode('utf-8'))
 
     # Write full-text indexkeyses out
-    output.write("\n-- Full Text keys --\n")
-    for line in fulltext_key_lines:
-        output.write("%s;\n" % line.encode('utf-8'))
+    #output.write("\n-- Full Text keys --\n")
+    #for line in fulltext_key_lines:
+    #    output.write("%s;\n" % line.encode('utf-8'))
 
     # Finish file
     output.write("\n")
