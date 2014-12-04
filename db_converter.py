@@ -13,7 +13,12 @@ import sys
 import os
 import time
 import subprocess
+import unicodedata
 
+def remove_accents(input_str):
+    nkfd_form = unicodedata.normalize('NFKD', input_str)
+    only_ascii = nkfd_form.encode('ASCII', 'ignore')
+    return only_ascii
 
 def parse(input_filename, output_filename):
     "Feed it a file, and it'll output a fixed one"
@@ -31,6 +36,7 @@ def parse(input_filename, output_filename):
     fulltext_key_lines = []
     sequence_lines = []
     cast_lines = []
+    replacers = {}
     num_inserts = 0
     started = time.time()
 
@@ -80,7 +86,11 @@ def parse(input_filename, output_filename):
                 creation_lines = []
             # Inserting data into a table?
             elif line.startswith("INSERT INTO"):
-                output.write(line.encode("utf8").replace("'0000-00-00 00:00:00'", "NULL") + "\n")
+                line = line.encode("utf8")
+                line = line.replace("'0000-00-00 00:00:00'", "NULL")
+                for key in replacers:
+                    line = line.replace(key, replacers[key])
+                output.write(line + "\n")
                 num_inserts += 1
             # ???
             else:
@@ -182,7 +192,11 @@ def parse(input_filename, output_filename):
                 pass
             # Is it the end of the table?
             elif line == ");":
-                output.write("CREATE TABLE \"%s\" (\n" % current_table.encode('utf-8'))
+                table = current_table.encode('utf-8')
+                if table != remove_accents(table):
+                    replacers[table] = remove_accents(table)
+                    table = remove_accents(table)
+                output.write("CREATE TABLE \"%s\" (\n" % remove_accents(current_table.encode('utf-8')))
                 for i, line in enumerate(creation_lines):
                     output.write("    %s%s\n" % (line.encode('utf-8'), "," if i != (len(creation_lines) - 1) else ""))
                 output.write(');\n\n')
