@@ -86,10 +86,10 @@ def parse(input_filename, output_filename):
                 creation_lines = []
             # Inserting data into a table?
             elif line.startswith("INSERT INTO"):
-                line = line.encode("utf8")
                 line = line.replace("'0000-00-00 00:00:00'", "NULL")
                 for key in replacers:
                     line = line.replace(key, replacers[key])
+                line = line.encode("utf8")
                 output.write(line + "\n")
                 num_inserts += 1
             # ???
@@ -192,11 +192,12 @@ def parse(input_filename, output_filename):
                 pass
             # Is it the end of the table?
             elif line == ");":
-                table = current_table.encode('utf-8')
+                table = current_table
                 if table != remove_accents(table):
                     replacers[table] = remove_accents(table)
                     table = remove_accents(table)
-                output.write("CREATE TABLE \"%s\" (\n" % remove_accents(current_table.encode('utf-8')))
+                table = table.encode('utf-8')
+                output.write("CREATE TABLE \"%s\" (\n" % table)
                 for i, line in enumerate(creation_lines):
                     output.write("    %s%s\n" % (line.encode('utf-8'), "," if i != (len(creation_lines) - 1) else ""))
                 output.write(');\n\n')
