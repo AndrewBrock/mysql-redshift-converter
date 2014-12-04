@@ -87,6 +87,7 @@ def parse(input_filename, output_filename):
             # Inserting data into a table?
             elif line.startswith("INSERT INTO"):
                 line = line.replace("'0000-00-00 00:00:00'", "NULL")
+                line = line.replace("'0000-00-00'", "NULL")
                 for key in replacers:
                     line = line.replace(key, replacers[key])
                 line = line.encode("utf8")
