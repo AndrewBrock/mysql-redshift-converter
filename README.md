@@ -7,8 +7,14 @@ This script was designed for our specific database and column requirements -
 notably, it quadrubles the lengths of VARCHARs due to a unicode size problem we
 had, places indexes on all foreign keys.
 
+This is way slower then coping the data via csv files to s3.
+
 How to use
 ----------
+
+Get the script:
+
+    wget https://raw.githubusercontent.com/digi604/mysql-redshift-converter/master/db_converter.py
 
 First, dump your MySQL database in PostgreSQL-compatible format
 
